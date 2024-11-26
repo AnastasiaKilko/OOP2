@@ -6,6 +6,7 @@ class Application(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000, help_text="Enter a brief description of the application")
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     APP_STATUS = (
