@@ -17,8 +17,14 @@ class Application(models.Model):
 
     status = models.CharField(max_length=1, choices=APP_STATUS, default='n', help_text="The status of the application")
 
+    def get_absolute_url(self):
+        return reverse('designapp-detail', args=[str(self.name)])
+
     def __str__(self):
-        return self.name
+        return '%s, %s (%s)' % (self.created_at, self.name, self.status)
+
+    class Meta:
+        ordering = ['-created_at']
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
