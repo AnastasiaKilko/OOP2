@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import AbstractUser
+
 
 # Create your models here.
 class Application(models.Model):
@@ -26,8 +28,18 @@ class Application(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
+
+class AdvUser(AbstractUser):
+    is_activated = models.BooleanField(default=True,
+                                       db_index=True, verbose_name='Have you been activated?')
+    send_messages = models.BooleanField(default=True, verbose_name='Would you like to get new comments notification?')
+
+    class Meta(AbstractUser.Meta):
+        pass

@@ -25,8 +25,26 @@
         <div class="col-sm-2">
             {% block sidebar %}
             <ul class="sidebar-nav">
-                <li><a href="{% url 'index' %}">Home</a></li>
-                <li><a href="">My applications</a></li>
+                <li><a href="{% url 'main:index' %}">Home</a></li>
+                <li><a href="">Applications</a></li>
+            </ul>
+
+            <ul class="sidebar-nav">
+                {% if user.is_authenticated %}
+                <li>User: {{ user.get_username }}</li>
+                <li><a href="{% url 'main:profile' %}">Profile</a></li>
+<!--                <li><a href="{% url 'main:profile_change' %}">Change personal data</a></li>-->
+                <li><a href="{% url 'main:password_change' %}">Change password</a></li>
+                <li>
+                    <form id="logout-form" method="post" action="{% url 'main:logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link">Logout</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{% url 'main:register' %}">Registration</a></li>
+                <li><a href="{% url 'main:login' %}">Login</a></li>
+                {% endif %}
             </ul>
             {% endblock %}
         </div>

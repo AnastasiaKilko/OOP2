@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+{% load bootstrap4 %}
+
+{% block title %} User profile {% endblock %}
+{% block content %}
+<h2>Profile of user {{ user.username }}</h2>
+{% if user.first_name and user.last_name %}
+<p>Hello, {{ user.first_name }} {{
+user.last_name }} </p>
+{% else %}
+<p>Welcome! </p>
+{% endif %}
+<h3>Your applications</h3>
+{% endblock %}
