@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Application List</h1>
+
+{% if application_list %}
+<ul>
+    {% for app in application_list %}
+    <p>Timestamp: {{ app.created_at }};</p>
+    <p>Name: {{ app.name }};</p>
+    <p>Description: {{ app.description }};</p>
+    <p>Category: {{ app.category }};</p>
+    <p>Status: {{ app.status }};</p>
+    <br>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no applications in the list.</p>
+{% endif %}
+{% endblock %}

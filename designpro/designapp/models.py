@@ -10,6 +10,7 @@ class Application(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey('AdvUser', on_delete=models.SET_NULL, null=True)
 
     APP_STATUS = (
         ('n', 'New'),
@@ -43,3 +44,4 @@ class AdvUser(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         pass
+

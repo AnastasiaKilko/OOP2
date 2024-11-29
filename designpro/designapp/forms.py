@@ -3,7 +3,6 @@ from .models import AdvUser
 from django.contrib.auth import password_validation
 from django.core.exceptions import ValidationError
 
-
 class ChangeUserInfoForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Email address')
 
@@ -42,7 +41,7 @@ class RegisterUserForm(forms.ModelForm):
         user.is_activated = False
         if commit:
             user.save()
-        user_registrated.send(RegisterUserForm, instance=user)
+        #user_registrated.send(RegisterUserForm, instance=user)
         return user
 
     class Meta:

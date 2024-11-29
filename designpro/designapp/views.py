@@ -10,6 +10,7 @@ from .models import Application, AdvUser
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, TemplateView
 from .forms import ChangeUserInfoForm, RegisterUserForm
+from django.views import generic
 
 # Create your views here.
 def index(request):
@@ -73,19 +74,12 @@ class RegisterDoneView(TemplateView):
    template_name = 'main/register_done.html'
 
 
+class ApplicationListView(generic.ListView):
+    model = Application
+    paginate_by = 4
 
 
 
-# class ApplicationListView(generic.ListView):
-#     model = Application
-#     paginate_by = 4
-#
-#     def get_queryset(self):
-#         return Application.objects.filter(status__incontains='d')
-#
-#
 # class ApplicationDetailView(generic.DetailView):
 #     model = Application
 #
-#     def get_queryset(self):
-#         return Application.objects.filter(status__incontains='d')
