@@ -8,5 +8,5 @@ admin.site.register(AdvUser)
 
 @admin.register(Application)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('name', 'description', 'category', 'status', 'created_at')
+    list_display = ('name', 'description', 'author', 'category', 'status', 'created_at')
     list_filter = ('status', 'created_at')

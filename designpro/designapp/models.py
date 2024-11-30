@@ -10,7 +10,7 @@ class Application(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey('AdvUser', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey('AdvUser', on_delete=models.SET_NULL, null=True, blank=True)
 
     APP_STATUS = (
         ('n', 'New'),
@@ -38,6 +38,19 @@ class Category(models.Model):
 
 
 class AdvUser(AbstractUser):
+    username = models.CharField(max_length=100, unique=True)
+    first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100, blank=True)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=False)
+
+    USER_DISTRICT = (
+        ('k', 'Кировский'),
+        ('l', 'Ленинский'),
+        ('o', 'Октябрьский'),
+    )
+    district = models.CharField(max_length=1, choices=USER_DISTRICT, default='l', help_text="Choose a district")
+
     is_activated = models.BooleanField(default=True,
                                        db_index=True, verbose_name='Have you been activated?')
     send_messages = models.BooleanField(default=True, verbose_name='Would you like to get new comments notification?')
@@ -45,3 +58,10 @@ class AdvUser(AbstractUser):
     class Meta(AbstractUser.Meta):
         pass
 
+# class District(models.Model):
+#     USER_DISTRICT = (
+#         ('k', 'Кировский'),
+#         ('l', 'Ленинский'),
+#         ('o', 'Октябрьский'),
+#     )
+#     district = models.CharField(max_length=1, choices=USER_DISTRICT, default='l', help_text="Choose a district")

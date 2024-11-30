@@ -10,5 +10,18 @@
 <p>Welcome! </p>
 {% endif %}
 <h3>Your applications</h3>
-
+{% if personal_applications %}
+<ul>
+    {% for ap in personal_applications %}
+    <p>Timestamp: {{ pa.created_at }};</p>
+    <p>Name: {{ pa.name }};</p>
+    <p>Description: {{ pa.description }};</p>
+    <p>Category: {{ pa.category }};</p>
+    <p>Status: {{ pa.status }};</p>
+    <br>
+    {% endfor %}
+</ul>
+{% else %}
+<p>There are no applications in the list.</p>
+{% endif %}
 {% endblock %}

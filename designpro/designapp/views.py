@@ -12,6 +12,7 @@ from django.views.generic import CreateView, UpdateView, TemplateView
 from .forms import ChangeUserInfoForm, RegisterUserForm
 from django.views import generic
 
+
 # Create your views here.
 def index(request):
     applications_done = Application.objects.filter(status__exact='d')[:4]
@@ -36,7 +37,9 @@ class BBLoginView(LoginView):
 
 @login_required
 def profile(request):
+   # personal_applications = PersonalApplicationListView.as_view()
     return render(request, 'main/profile.html')
+                  #{'personal_applications': personal_applications})
 
 class BBLogoutView(LoginRequiredMixin, LogoutView):
     template_name = 'main/logout.html'
@@ -74,12 +77,18 @@ class RegisterDoneView(TemplateView):
    template_name = 'main/register_done.html'
 
 
-class ApplicationListView(generic.ListView):
+# class ApplicationListView(generic.ListView):
+#     model = Application
+#     paginate_by = 4
+#
+#
+class PersonalApplicationListView(generic.ListView):
     model = Application
     paginate_by = 4
 
-
-
-# class ApplicationDetailView(generic.DetailView):
-#     model = Application
+    def get_queryset(self):
+        return Application.objects.filter(author=self.request.user)
 #
+# # class ApplicationDetailView(generic.DetailView):
+# #     model = Application
+# #
