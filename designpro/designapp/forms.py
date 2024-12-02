@@ -26,14 +26,11 @@ class RegisterUserForm(forms.ModelForm):
     password2 = forms.CharField(label='Repeat Password', widget=forms.PasswordInput,
                                 help_text='Repeat password')
     last_name = forms.CharField(required=True, label='Last name', widget=forms.TextInput,
-                                validators=[RegexValidator('^[а-яА-ЯёЁ-]+\s',
-                                                           message='Your last name format is wrong. Please, try again.')])
+                                validators=[RegexValidator('^[а-яА-ЯёЁ -]', message='Your last name format is wrong. Please, try again.')])
     first_name = forms.CharField(required=True, label='First name', widget=forms.TextInput,
-                                 validators=[RegexValidator('^[а-яА-ЯёЁ-]+\s',
-                                                           message='Your first name format is wrong. Please, try again.')])
+                                 validators=[RegexValidator('^[а-яА-ЯёЁ -]', message='Your first name format is wrong. Please, try again.')])
     middle_name = forms.CharField(required=True, label='Middle name', widget=forms.TextInput,
-                                  validators=[RegexValidator('^[а-яА-ЯёЁ-]+\s',
-                                                           message='Your middle name format is wrong. Please, try again.')])
+                                  validators=[RegexValidator('^[а-яА-ЯёЁ -]', message='Your middle name format is wrong. Please, try again.')])
     USER_DISTRICT = (
         ('k', 'Кировский'),
         ('l', 'Ленинский'),
@@ -60,8 +57,10 @@ class RegisterUserForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data['password1'])
-        user.is_active = True
-        user.is_activated = True
+        user.is_active = False
+        user.is_activated = False
+        if commit:
+            user.save()
         return user
 
     class Meta:
