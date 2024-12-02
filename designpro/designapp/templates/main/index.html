@@ -1,27 +1,29 @@
 {% extends "base_generic.html" %}
-
+{% load bootstrap4 %}
 {% block content %}
-<h1>Design.Pro</h1>
-<p>
-    Welcome to <em>Design.Pro</em>! Our design-studio can help you create and decorate your home with design of your
-    dream!
-</p>
-<br>
-{% if applications_done %}
-<p><strong>Completed Applications:</strong></p>
-<ul>
-    {% for done_app in applications_done %}
-    <p>Timestamp: {{ done_app.created_at }};</p>
-    <p>Name: {{ done_app.name }};</p>
-    <p>Category: {{ done_app.category }};</p>
-    <p>Image: <img src="{{ done_app.image.url }}" alt="Photo or plan of the room"></p>
+<div class="container-fluid">
+    <p class="mr-md-auto p-2">
+        Добро пожаловать в дизайн-студию <em>Design.Pro</em>!
+        <br>Наша студия поможет Вам создать и оформить интерьер помещений Вашей мечты!
+    </p>
     <br>
-    {% endfor %}
-</ul>
-{% else %}
-<p>There are no completed applications.</p>
-{% endif %}
-<br>
-<p><strong>Accepted Applications:</strong> {{ num_applications_accepted }}</p>
-
+    <div class="mr-md-auto p-2"
+         {% if applications_done %}
+        <p><strong>Последние заявки в статусе "Выполнено":</strong></p>
+        <ul>
+            {% for done_app in applications_done %}
+            <p>Временная метка: {{ done_app.created_at }};</p>
+            <p>Название: {{ done_app.name }};</p>
+            <p>Категория заявки: {{ done_app.category }};</p>
+            <p>Фотография: <img src="{{ done_app.image.url }}" alt="Фотография или план комнаты"></p>
+            <br>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Нет выполненных заявок.</p>
+        {% endif %}
+        <br>
+        <p><strong>Принятые в работу заявки:</strong> {{ num_applications_accepted }}</p>
+    </div>
+</div>
 {% endblock %}
