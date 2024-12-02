@@ -5,7 +5,8 @@
 {% block content %}
 <h2>Profile of user {{ user.username }}</h2>
 {% if user.first_name and user.last_name %}
-<p>Hello, {{ user.first_name }} {{ user.last_name }}! </p>
+<p>Hello, {{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}! </p>
+<p>Your district is {{user.district}}</p>
 {% else %}
 <p>Welcome! </p>
 {% endif %}
